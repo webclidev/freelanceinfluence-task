@@ -31,7 +31,7 @@ export default function useLogin() {
         .login(user)
         .then(() => {
           router.push({ name: 'Dashboard' })
-          task.getMyTasks()
+          task.getMyTasks({ limit: 5 })
         })
         .catch(() => {
           clear()

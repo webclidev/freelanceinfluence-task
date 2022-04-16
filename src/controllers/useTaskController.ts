@@ -1,28 +1,19 @@
-import api from '@/services/api'
-import { CreateTask } from '@/types/task.model'
+import api, { paramsToQueryString } from '@/services/api'
+import { CreateTask, UserTaskInfo } from '@/types/task.model'
 import useTaskStore from '@/store/task'
-import { UserTaskInfo, Task } from '@/types/task.model'
-const { setMyTasks, getMyTasks: allTasks } = useTaskStore()
-const limit = 5
+import { Task } from '@/types/task.model'
+import { MyTasksQueryParams } from '@/types/task.model'
+const { setMyTasks, updateMyTasks } = useTaskStore()
 
 const createTask = async (task: CreateTask) => {
   return await api.post<Task>('tasks', task).then((response) => {
-    const newCount: number = (allTasks.value?.count ?? 0) + 1
-    const newTasks: Array<Task> = Array.from(allTasks.value?.tasks ?? [])
-    newTasks.unshift(response.data)
-
-    const newTask: UserTaskInfo = {
-      count: newCount,
-      tasks: newTasks.slice(0, limit),
-    }
-
-    setMyTasks(newTask)
+    updateMyTasks(response.data)
     return response
   })
 }
 
-const getMyTasks = async () => {
-  return await api.get(`tasks/my?limit=${limit}`).then((response) => {
+const getMyTasks = async (params: MyTasksQueryParams) => {
+  return await api.get<UserTaskInfo>(`tasks/my${paramsToQueryString(params)}`).then((response) => {
     setMyTasks(response.data)
     return response
   })

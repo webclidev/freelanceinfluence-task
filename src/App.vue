@@ -32,7 +32,7 @@ export default defineComponent({
       await router.isReady()
       if (isAuthenticated.value && route.path !== '/') {
         user.getMyProfile()
-        task.getMyTasks()
+        task.getMyTasks({ limit: 5 })
       }
     })
 

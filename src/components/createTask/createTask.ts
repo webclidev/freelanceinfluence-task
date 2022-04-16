@@ -2,6 +2,7 @@ import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import useTaskController from '@/controllers/useTaskController'
 import { CreateTask } from '@/types/task.model'
+import { Platform } from '@/types/platform.model'
 import { Currency } from '@/types/money.model'
 
 export default function useCreateTask() {
@@ -15,7 +16,7 @@ export default function useCreateTask() {
       value: 0,
       currency: Currency.USD,
     },
-    platforms: ['INSTAGRAM', 'FACEBOOK', 'TWITTER', 'LINKEDIN'],
+    platforms: [Platform.INSTAGRAM],
     filesIds: [],
   })
 

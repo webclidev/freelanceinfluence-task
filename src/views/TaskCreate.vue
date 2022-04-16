@@ -50,5 +50,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/assets/styles/views/Login';
+@import '@/assets/styles/views/TaskCreate';
 </style>
